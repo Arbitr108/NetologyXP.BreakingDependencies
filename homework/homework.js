@@ -1,27 +1,7 @@
 "use strict";
-var Product = require("./product");
-var ProductType = require("./product_type");
-
-class ProductMap {
-    constructor() {
-        this._products = new Map();
-    }
-
-    add(name, product) {
-        this._validate(product);
-        this._products.set(name, product);
-        return this;
-    }
-
-    get(name) {
-        return this._products.get(name);
-    }
-
-    _validate(product) {
-        if (!product instanceof Product)
-            throw `${product} is not instance of Product`;
-    }
-}
+let Product = require("./product");
+let ProductType = require("./product_type");
+let ProductMap = require("./product_map");
 
 let productMap = new ProductMap();
 productMap

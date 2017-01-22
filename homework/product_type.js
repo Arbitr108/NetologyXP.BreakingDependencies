@@ -7,3 +7,4 @@ const ProductType = {
     PRESCRIBED_DRUG: "PrescriptionDrug",
     PREPARED_FOOD: "PreparedFood"
 }
+module.exports = ProductType;
