@@ -49,7 +49,7 @@ function calculatePriceFor(state, item) {
 }
 
 class TaxPrinter {
-    print(line) {
+    static print(line) {
         console.log(line);
     }
 }
@@ -63,13 +63,13 @@ class TaxCalculator {
     }
 
     _print(state, ordersCount) {
-        console.log(`----------${state}-----------`);
+        TaxPrinter.print(`----------${state}-----------`);
         for (var i = 0; i < ordersCount; i++) {
             var item = getSelectedItem();
             var result = calculatePriceFor(state, item);
-            console.log(`${item}: $${result.toFixed(2)}`);
+            TaxPrinter.print(`${item}: $${result.toFixed(2)}`);
         }
-        console.log(`----Have a nice day!-----`);
+        TaxPrinter.print(`----Have a nice day!-----`);
     }
 }
 
