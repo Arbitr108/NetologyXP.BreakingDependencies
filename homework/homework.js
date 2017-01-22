@@ -27,7 +27,16 @@ var items = {
 };
 //States list
 let stateSet = new Set();
-
+stateSet
+    .add("Alabama")
+    .add("Alaska")
+    .add("Arizona")
+    .add("Arkansas")
+    .add("California")
+    .add("Colorado")
+    .add("Connecticut")
+    .add("Tennessee")
+    .add("Texas");
 
 //Tax multiplicators list
 var itemTypes =
