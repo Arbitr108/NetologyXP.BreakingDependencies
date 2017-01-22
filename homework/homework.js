@@ -3,7 +3,7 @@ let Product = require("./product");
 let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
 let Tax = require("./tax");
-
+let TaxPrinter = require("./tax_printer");
 //Products list
 let productMap = new ProductMap();
 productMap
@@ -48,11 +48,6 @@ function calculatePriceFor(state, item) {
     return result;
 }
 
-class TaxPrinter {
-    static print(line) {
-        console.log(line);
-    }
-}
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
