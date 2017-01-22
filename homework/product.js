@@ -5,6 +5,9 @@ class Product {
         this._type = type;
     }
 
+    hasType(type) {
+        return this._type === type;
+    }
     getType() {
         return this._type;
     }
