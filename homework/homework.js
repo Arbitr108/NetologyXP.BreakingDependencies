@@ -2,6 +2,7 @@
 let Product = require("./product");
 let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
+let StateSet = require("./state_set");
 
 let productMap = new ProductMap();
 productMap
