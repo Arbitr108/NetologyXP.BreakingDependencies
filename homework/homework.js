@@ -48,6 +48,11 @@ function calculatePriceFor(state, item) {
     return result;
 }
 
+class TaxPrinter {
+    print(line) {
+        console.log(line);
+    }
+}
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
