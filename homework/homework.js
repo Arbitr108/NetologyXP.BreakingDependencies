@@ -1,11 +1,6 @@
 "use strict";
 var Product = require("./product");
-
-const ProductType = {
-    GROCERIES: "Groceries",
-    PRESCRIBED_DRUG: "PrescriptionDrug",
-    PREPARED_FOOD: "PreparedFood"
-}
+var ProductType = require("./product_type");
 
 class ProductMap {
     constructor() {
