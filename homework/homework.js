@@ -39,6 +39,26 @@ stateTaxMap
     .set("Tennessee", {base: 7})
     .set("Texas", {base: 6.25});
 
+class Tax {
+    static _stateTaxMap() {
+        return stateTaxMap;
+    }
+
+    constructor(state, product) {
+        if (!Tax._stateTaxMap.has(state))
+            throw `No state ${state} found`;
+
+    }
+
+    _baseFor(state) {
+        return stateTaxMap.get(state);
+    }
+
+    _multiplierFor(state, product) {
+
+    }
+}
+
 //Tax multiplicators list
 var itemTypes =
 {
