@@ -9,12 +9,12 @@ let productMap = new ProductMap();
 productMap
     .add("milk", new Product(5.5, ProductType.GROCERIES))
     .add("eggs", new Product(3.0, ProductType.GROCERIES))
-    .add("coca-cola", new Product(3.0, ProductType.GROCERIES))
-    .add("amoxicillin", new Product(3.0, ProductType.GROCERIES))
-    .add("aspirin", new Product(3.0, ProductType.PRESCRIBED_DRUG))
-    .add("marijuana", new Product(3.0, ProductType.PRESCRIBED_DRUG))
-    .add("eghamburgergs", new Product(3.0, ProductType.PREPARED_FOOD))
-    .add("ceasar salad", new Product(3.0, ProductType.PREPARED_FOOD));
+    .add("coca-cola", new Product(0.4, ProductType.GROCERIES))
+    .add("amoxicillin", new Product(6.7, ProductType.GROCERIES))
+    .add("aspirin", new Product(0.2, ProductType.PRESCRIBED_DRUG))
+    .add("marijuana", new Product(1.4, ProductType.PRESCRIBED_DRUG))
+    .add("hamburger", new Product(2, ProductType.PREPARED_FOOD))
+    .add("ceasar salad", new Product(4.2, ProductType.PREPARED_FOOD));
 
 var items = {
     "milk": {price: 5.5, type: "Groceries"},
@@ -94,14 +94,16 @@ function calc(state, itemType) {
 }
 
 function calculatePriceFor(state, item) {
+    var product = productMap.get(item);
     var result = null;
-    if (items[item].type === "PreparedFood") {
-        result = ( 1 + base(state) ) * items[item].price;
+    if (product.hasType(ProductType.PREPARED_FOOD)) {
+        result = ( 1 + stateTaxMap.get(state).getBase() ) * product.getPrice();
     }
     else {
-        result = calc(state, items[item].type) * items[item].price + items[item].price;
+        result = calc(state, product.getType()) * product.getPrice() + product.getPrice();
     }
     return result;
+
 }
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
