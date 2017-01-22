@@ -26,17 +26,18 @@ var items = {
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
 //States list
-let stateSet = new Set();
-stateSet
-    .add("Alabama")
-    .add("Alaska")
-    .add("Arizona")
-    .add("Arkansas")
-    .add("California")
-    .add("Colorado")
-    .add("Connecticut")
-    .add("Tennessee")
-    .add("Texas");
+let stateMap = new Map();
+
+stateMap
+    .set("Alabama", {base: 0.04})
+    .set("Alaska", {base: 0})
+    .set("Arizona", {base: 0.056})
+    .set("Arkansas", {base: 0.065})
+    .set("California", {base: 0.075})
+    .set("Colorado", {base: 0.029})
+    .set("Connecticut", {base: 0.0635})
+    .set("Tennessee", {base: 7})
+    .set("Texas", {base: 6.25});
 
 //Tax multiplicators list
 var itemTypes =
