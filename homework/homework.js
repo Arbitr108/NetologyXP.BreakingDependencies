@@ -1,8 +1,12 @@
 "use strict";
 class Product{
-
+    constructor(price, type) {
+        this._price = price;
+        this._type = type;
+    }
 }
 // Этот код можно менять как угодно
+//Products list
 var items = {
     "milk": {price: 5.5, type: "Groceries"},
     "eggs": {price: 3.0, type: "Groceries"},
@@ -13,7 +17,7 @@ var items = {
     "hamburger": {price: 2, type: "PreparedFood"},
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
-
+//Tax multiplicators list
 var itemTypes =
     {
         "Groceries": {
@@ -39,7 +43,7 @@ var itemTypes =
             "Texas": ""
         }
     };
-
+//Base taxes
 function base(state) {
     var taxes = {
         "Alabama": 0.04,
@@ -54,7 +58,7 @@ function base(state) {
     };
     return taxes[state];
 }
-
+//Price calculation for products of non PreparedFood type
 function calc(state, itemType) {
 
     var itemTypeTaxModifier = itemTypes[itemType];
@@ -63,7 +67,6 @@ function calc(state, itemType) {
     }
     return base(state) + itemTypeTaxModifier[state];
 }
-
 
 function calculatePriceFor(state, item) {
     var result = null;
