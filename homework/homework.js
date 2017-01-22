@@ -7,10 +7,18 @@ class Product{
 }
 
 class ProductSet{
-    static products = {};
-    static add(name, product){}
+    constructor() {
+        this._products = {};
+    }
+    static add(name, product){
+        this._validate(product);
+        this._products[name] = product;
+    }
     static get(){}
-    static validate(){}
+    static _validate(product){
+        if(product instanceof Product)
+            throw `${product} is not instance of Product`;
+    }
 }
 // Этот код можно менять как угодно
 //Products list
