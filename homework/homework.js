@@ -39,7 +39,10 @@ stateTaxMap
     .set("Tennessee", {base: 7})
     .set("Texas", {base: 6.25});
 
+let taxMultiplierMap = new Map();
+
 class Tax {
+
     static _stateTaxMap() {
         return stateTaxMap;
     }
@@ -47,7 +50,19 @@ class Tax {
     constructor(state, product) {
         if (!Tax._stateTaxMap.has(state))
             throw `No state ${state} found`;
+        this._state = state;
+        this._product = product;
+    }
 
+    _calculate() {
+        var result = null;
+        if (this._product.hasType("PreparedFood")) {
+            result = ( 1 + this._baseFor(state) ) * this._product.getPrice();
+        }
+        else {
+            result = calc(this._state, this._product.getType()) * this._product.getPrice() + this._product.getPrice();
+        }
+        return result;
     }
 
     _baseFor(state) {
