@@ -1,5 +1,7 @@
 "use strict";
+class Product{
 
+}
 // Этот код можно менять как угодно
 var items = {
     "milk": {price: 5.5, type: "Groceries"},
