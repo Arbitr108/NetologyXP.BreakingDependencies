@@ -26,9 +26,9 @@ var items = {
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
 //States list
-let stateMap = new Map();
+let stateTaxMap = new Map();
 
-stateMap
+stateTaxMap
     .set("Alabama", {base: 0.04})
     .set("Alaska", {base: 0})
     .set("Arizona", {base: 0.056})
