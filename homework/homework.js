@@ -34,17 +34,15 @@ function calculatePriceFor(state, productName) {
     var productPrice = product.getPrice();
     var tax = stateTaxMap.get(state);
 
-    var result = null;
-    if (product.hasType(ProductType.PREPARED_FOOD)) {
-        result = ( 1 + tax.getBase() ) * productPrice;
-    } else {
-        var taxMultiplier = tax.getMultiplier(product.getType());
-        if (taxMultiplier === "")
-            result = productPrice;
-        else
-            result = (tax.getBase() + taxMultiplier) * productPrice + productPrice;
-    }
-    return result;
+    if (product.hasType(ProductType.PREPARED_FOOD))
+        return ( 1 + tax.getBase() ) * productPrice;
+
+    var taxMultiplier = tax.getMultiplier(product.getType());
+
+    if (taxMultiplier === "")
+        return productPrice;
+    else
+        return (tax.getBase() + taxMultiplier) * productPrice + productPrice;
 }
 
 class TaxCalculator {
