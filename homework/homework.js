@@ -2,8 +2,8 @@
 let Product = require("./product");
 let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
-let StateSet = require("./state_set");
 
+//Products list
 let productMap = new ProductMap();
 productMap
     .add("milk", new Product(5.5, ProductType.GROCERIES))
@@ -15,7 +15,6 @@ productMap
     .add("eghamburgergs", new Product(3.0, ProductType.PREPARED_FOOD))
     .add("ceasar salad", new Product(3.0, ProductType.PREPARED_FOOD));
 
-//Products list
 var items = {
     "milk": {price: 5.5, type: "Groceries"},
     "eggs": {price: 3.0, type: "Groceries"},
@@ -26,6 +25,10 @@ var items = {
     "hamburger": {price: 2, type: "PreparedFood"},
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
+//States list
+let stateSet = new Set();
+
+
 //Tax multiplicators list
 var itemTypes =
 {
