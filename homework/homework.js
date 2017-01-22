@@ -27,7 +27,18 @@ class ProductMap{
             throw `${product} is not instance of Product`;
     }
 }
-// Этот код можно менять как угодно
+
+let productMap = new ProductMap();
+productMap
+    .add("milk", new Product(5.5, ProductType.GROCERIES))
+    .add("eggs", new Product(3.0, ProductType.GROCERIES))
+    .add("coca-cola", new Product(3.0, ProductType.GROCERIES))
+    .add("amoxicillin", new Product(3.0, ProductType.GROCERIES))
+    .add("aspirin", new Product(3.0, ProductType.PRESCRIBED_DRUG))
+    .add("marijuana", new Product(3.0, ProductType.PRESCRIBED_DRUG))
+    .add("eghamburgergs", new Product(3.0, ProductType.PREPARED_FOOD))
+    .add("ceasar salad", new Product(3.0, ProductType.PREPARED_FOOD));
+
 //Products list
 var items = {
     "milk": {price: 5.5, type: "Groceries"},
