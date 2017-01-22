@@ -16,17 +16,6 @@ productMap
     .add("hamburger", new Product(2, ProductType.PREPARED_FOOD))
     .add("ceasar salad", new Product(4.2, ProductType.PREPARED_FOOD));
 
-var items = {
-    "milk": {price: 5.5, type: "Groceries"},
-    "eggs": {price: 3.0, type: "Groceries"},
-    "coca-cola": {price: 0.4, type: "Groceries"},
-    "amoxicillin": {price: 6.7, type: "Groceries"},
-    "aspirin": {price: 0.2, type: "PrescriptionDrug"},
-    "marijuana": {price: 1.4, type: "PrescriptionDrug"},
-    "hamburger": {price: 2, type: "PreparedFood"},
-    "ceasar salad": {price: 4.2, type: "PreparedFood"},
-};
-//States list
 
 let stateTaxMap = new Map();
 
@@ -40,58 +29,6 @@ stateTaxMap
     .set("Connecticut", new Tax(0.0635, new Map([["Groceries", ""], ["PrescriptionDrug", ""]])))
     .set("Tennessee", new Tax(7, new Map([["Groceries", 5], ["PrescriptionDrug", ""]])))
     .set("Texas", new Tax(6.25, new Map([["Groceries", 0], ["PrescriptionDrug", ""]])));
-
-
-//Tax multiplicators list
-var itemTypes =
-{
-    "Groceries": {
-        "Alabama": 0,
-        "Alaska": 0,
-        "Arizona": "",
-        "Arkansas": 0.015,
-        "California": "",
-        "Colorado": "",
-        "Connecticut": "",
-        "Tennessee": 5,
-        "Texas": 0
-    },
-    "PrescriptionDrug": {
-        "Alabama": "",
-        "Alaska": 0,
-        "Arizona": "",
-        "Arkansas": "",
-        "California": "",
-        "Colorado": "",
-        "Connecticut": "",
-        "Tennessee": "",
-        "Texas": ""
-    }
-};
-//Base taxes
-function base(state) {
-    var taxes = {
-        "Alabama": 0.04,
-        "Alaska": 0,
-        "Arizona": 0.056,
-        "Arkansas": 0.065,
-        "California": 0.075,
-        "Colorado": 0.029,
-        "Connecticut": 0.0635,
-        "Tennessee": 7,
-        "Texas": 6.25
-    };
-    return taxes[state];
-}
-//Price calculation for products of non PreparedFood type
-function calc(state, itemType) {
-
-    var itemTypeTaxModifier = itemTypes[itemType];
-    if (itemTypeTaxModifier[state] === "") {
-        return 0;
-    }
-    return base(state) + itemTypeTaxModifier[state];
-}
 
 function calculatePriceFor(state, item) {
     var product = productMap.get(item);
