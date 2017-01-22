@@ -6,6 +6,12 @@ class Product{
     }
 }
 
+const ProductType = {
+    GROCERIES: "Groceries",
+    PRESCRIBED_DRUG: "PrescriptionDrug",
+    PREPARED_FOOD: "PreparedFood"
+}
+
 class ProductSet{
     constructor() {
         this._products = {};
