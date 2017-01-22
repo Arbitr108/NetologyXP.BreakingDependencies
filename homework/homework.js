@@ -12,17 +12,18 @@ const ProductType = {
     PREPARED_FOOD: "PreparedFood"
 }
 
-class ProductSet{
+class ProductMap{
     constructor() {
-        this._products = {};
+        this._products = new Map();
     }
-    static add(name, product){
+    add(name, product){
         this._validate(product);
-        this._products[name] = product;
+        this._products.set(name, product);
+        return this;
     }
-    static get(){}
-    static _validate(product){
-        if(product instanceof Product)
+    get(){}
+    _validate(product){
+        if(!product instanceof Product)
             throw `${product} is not instance of Product`;
     }
 }
