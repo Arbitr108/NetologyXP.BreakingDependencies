@@ -5,6 +5,13 @@ class Product{
         this._type = type;
     }
 }
+
+class ProductSet{
+    static products = {};
+    static add(name, product){}
+    static get(){}
+    static validate(){}
+}
 // Этот код можно менять как угодно
 //Products list
 var items = {
