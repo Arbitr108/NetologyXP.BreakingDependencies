@@ -3,9 +3,9 @@
  */
 "use strict"
 
-class TaxPrinter {
+class Printer {
     static print(line) {
         console.log(line);
     }
 }
-module.exports = TaxPrinter;
+module.exports = Printer;

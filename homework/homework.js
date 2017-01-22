@@ -3,7 +3,7 @@ let Product = require("./product");
 let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
 let Tax = require("./tax");
-let TaxPrinter = require("./tax_printer");
+let Printer = require("./printer");
 
 
 let productMap = new ProductMap();
@@ -57,13 +57,13 @@ class TaxCalculator {
     }
 
     _print(state, ordersCount) {
-        TaxPrinter.print(`----------${state}-----------`);
+        Printer.print(`----------${state}-----------`);
         for (var i = 0; i < ordersCount; i++) {
             var productName = getSelectedItem();
             var price = calculatePriceFor(state, productName);
-            TaxPrinter.print(`${productName}: $${price.toFixed(2)}`);
+            Printer.print(`${productName}: $${price.toFixed(2)}`);
         }
-        TaxPrinter.print(`----Have a nice day!-----`);
+        Printer.print(`----Have a nice day!-----`);
     }
 }
 
