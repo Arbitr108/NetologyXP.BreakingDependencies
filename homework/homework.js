@@ -46,14 +46,18 @@ function calculatePriceFor(state, item) {
             result = (tax.getBase() + taxMultiplier) * productPrice + productPrice;
     }
     return result;
-
 }
+
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
     calculateTax() {
         var ordersCount = getOrdersCount();
         var state = getSelectedState();
+        this._print(state, ordersCount);
+    }
+
+    _print(state, ordersCount) {
         console.log(`----------${state}-----------`);
         for (var i = 0; i < ordersCount; i++) {
             var item = getSelectedItem();
@@ -66,7 +70,7 @@ class TaxCalculator {
 
 //############################
 //Production - код:
-//calculateTaxes();
+calculateTaxes();
 
 //############################
 //Тесты:
