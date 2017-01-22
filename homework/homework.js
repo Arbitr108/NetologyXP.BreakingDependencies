@@ -4,7 +4,8 @@ let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
 let Tax = require("./tax");
 let TaxPrinter = require("./tax_printer");
-//Products list
+
+
 let productMap = new ProductMap();
 productMap
     .add("milk", new Product(5.5, ProductType.GROCERIES))
@@ -16,9 +17,7 @@ productMap
     .add("hamburger", new Product(2, ProductType.PREPARED_FOOD))
     .add("ceasar salad", new Product(4.2, ProductType.PREPARED_FOOD));
 
-
 let stateTaxMap = new Map();
-
 stateTaxMap
     .set("Alabama", new Tax(0.04, new Map([["Groceries", 0], ["PrescriptionDrug", ""]])))
     .set("Alaska", new Tax(0, new Map([["Groceries", 0], ["PrescriptionDrug", 0]])))
@@ -30,12 +29,12 @@ stateTaxMap
     .set("Tennessee", new Tax(7, new Map([["Groceries", 5], ["PrescriptionDrug", ""]])))
     .set("Texas", new Tax(6.25, new Map([["Groceries", 0], ["PrescriptionDrug", ""]])));
 
-function calculatePriceFor(state, item) {
-    var product = productMap.get(item);
-    var result = null;
+function calculatePriceFor(state, productName) {
+    var product = productMap.get(productName);
     var productPrice = product.getPrice();
     var tax = stateTaxMap.get(state);
 
+    var result = null;
     if (product.hasType(ProductType.PREPARED_FOOD)) {
         result = ( 1 + tax.getBase() ) * productPrice;
     } else {
@@ -60,9 +59,9 @@ class TaxCalculator {
     _print(state, ordersCount) {
         TaxPrinter.print(`----------${state}-----------`);
         for (var i = 0; i < ordersCount; i++) {
-            var item = getSelectedItem();
-            var result = calculatePriceFor(state, item);
-            TaxPrinter.print(`${item}: $${result.toFixed(2)}`);
+            var productName = getSelectedItem();
+            var price = calculatePriceFor(state, productName);
+            TaxPrinter.print(`${productName}: $${price.toFixed(2)}`);
         }
         TaxPrinter.print(`----Have a nice day!-----`);
     }
@@ -70,7 +69,7 @@ class TaxCalculator {
 
 //############################
 //Production - код:
-calculateTaxes();
+//calculateTaxes();
 
 //############################
 //Тесты:
