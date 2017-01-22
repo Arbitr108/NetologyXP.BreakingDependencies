@@ -1,5 +1,5 @@
 "use strict";
-class Product{
+class Product {
     constructor(price, type) {
         this._price = price;
         this._type = type;
@@ -12,20 +12,23 @@ const ProductType = {
     PREPARED_FOOD: "PreparedFood"
 }
 
-class ProductMap{
+class ProductMap {
     constructor() {
         this._products = new Map();
     }
-    add(name, product){
+
+    add(name, product) {
         this._validate(product);
         this._products.set(name, product);
         return this;
     }
-    get(name){
+
+    get(name) {
         return this._products.get(name);
     }
-    _validate(product){
-        if(!product instanceof Product)
+
+    _validate(product) {
+        if (!product instanceof Product)
             throw `${product} is not instance of Product`;
     }
 }
@@ -54,30 +57,30 @@ var items = {
 };
 //Tax multiplicators list
 var itemTypes =
-    {
-        "Groceries": {
-            "Alabama": 0,
-            "Alaska": 0,
-            "Arizona": "",
-            "Arkansas": 0.015,
-            "California": "",
-            "Colorado": "",
-            "Connecticut": "",
-            "Tennessee": 5,
-            "Texas": 0
-        },
-        "PrescriptionDrug": {
-            "Alabama": "",
-            "Alaska": 0,
-            "Arizona": "",
-            "Arkansas": "",
-            "California": "",
-            "Colorado": "",
-            "Connecticut": "",
-            "Tennessee":"",
-            "Texas": ""
-        }
-    };
+{
+    "Groceries": {
+        "Alabama": 0,
+        "Alaska": 0,
+        "Arizona": "",
+        "Arkansas": 0.015,
+        "California": "",
+        "Colorado": "",
+        "Connecticut": "",
+        "Tennessee": 5,
+        "Texas": 0
+    },
+    "PrescriptionDrug": {
+        "Alabama": "",
+        "Alaska": 0,
+        "Arizona": "",
+        "Arkansas": "",
+        "California": "",
+        "Colorado": "",
+        "Connecticut": "",
+        "Tennessee": "",
+        "Texas": ""
+    }
+};
 //Base taxes
 function base(state) {
     var taxes = {
@@ -144,7 +147,7 @@ var tests = [
 ];
 
 //Раскомментируйте следующую строчку для запуска тестов:
-runAllTests (tests);
+runAllTests(tests);
 
 //############################
 //Код ниже этой строчки не надо менять для выполнения домашней работы
