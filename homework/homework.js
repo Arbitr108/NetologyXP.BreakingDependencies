@@ -26,53 +26,34 @@ var items = {
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
 //States list
+class Tax {
+    constructor(base, multiplierMap) {
+        this._base = base;
+        this._multipliers = multiplierMap;
+    }
+
+    getBase() {
+        return this._base;
+    }
+
+    getMultiplier(product_type) {
+        return this._multipliers.get(product_type);
+    }
+}
+
 let stateTaxMap = new Map();
 
 stateTaxMap
-    .set("Alabama", {base: 0.04})
-    .set("Alaska", {base: 0})
-    .set("Arizona", {base: 0.056})
-    .set("Arkansas", {base: 0.065})
-    .set("California", {base: 0.075})
-    .set("Colorado", {base: 0.029})
-    .set("Connecticut", {base: 0.0635})
-    .set("Tennessee", {base: 7})
-    .set("Texas", {base: 6.25});
+    .set("Alabama", new Tax(0.04, new Map([["Groceries", 0], ["PrescriptionDrug", ""]])))
+    .set("Alaska", new Tax(0, new Map([["Groceries", 0], ["PrescriptionDrug", 0]])))
+    .set("Arizona", new Tax(0.056, new Map([["Groceries", ""], ["PrescriptionDrug", ""]])))
+    .set("Arkansas", new Tax(0.065, new Map([["Groceries", 0.015], ["PrescriptionDrug", ""]])))
+    .set("California", new Tax(0.075, new Map([["Groceries", ""], ["PrescriptionDrug", ""]])))
+    .set("Colorado", new Tax(0.029, new Map([["Groceries", ""], ["PrescriptionDrug", ""]])))
+    .set("Connecticut", new Tax(0.0635, new Map([["Groceries", ""], ["PrescriptionDrug", ""]])))
+    .set("Tennessee", new Tax(7, new Map([["Groceries", 5], ["PrescriptionDrug", ""]])))
+    .set("Texas", new Tax(6.25, new Map([["Groceries", 0], ["PrescriptionDrug", ""]])));
 
-let taxMultiplierMap = new Map();
-
-class Tax {
-
-    static _stateTaxMap() {
-        return stateTaxMap;
-    }
-
-    constructor(state, product) {
-        if (!Tax._stateTaxMap.has(state))
-            throw `No state ${state} found`;
-        this._state = state;
-        this._product = product;
-    }
-
-    _calculate() {
-        var result = null;
-        if (this._product.hasType("PreparedFood")) {
-            result = ( 1 + this._baseFor(state) ) * this._product.getPrice();
-        }
-        else {
-            result = calc(this._state, this._product.getType()) * this._product.getPrice() + this._product.getPrice();
-        }
-        return result;
-    }
-
-    _baseFor(state) {
-        return stateTaxMap.get(state);
-    }
-
-    _multiplierFor(state, product) {
-
-    }
-}
 
 //Tax multiplicators list
 var itemTypes =
