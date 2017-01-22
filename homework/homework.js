@@ -2,6 +2,7 @@
 let Product = require("./product");
 let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
+let Tax = require("./tax");
 
 //Products list
 let productMap = new ProductMap();
@@ -26,20 +27,6 @@ var items = {
     "ceasar salad": {price: 4.2, type: "PreparedFood"},
 };
 //States list
-class Tax {
-    constructor(base, multiplierMap) {
-        this._base = base;
-        this._multipliers = multiplierMap;
-    }
-
-    getBase() {
-        return this._base;
-    }
-
-    getMultiplier(product_type) {
-        return this._multipliers.get(product_type);
-    }
-}
 
 let stateTaxMap = new Map();
 
