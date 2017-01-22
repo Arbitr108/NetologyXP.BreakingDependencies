@@ -4,5 +4,13 @@ class Product {
         this._price = price;
         this._type = type;
     }
+
+    getType() {
+        return this._type;
+    }
+
+    getPrice() {
+        return this._price;
+    }
 }
 module.exports = Product;
