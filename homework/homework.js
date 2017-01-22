@@ -98,9 +98,12 @@ function calculatePriceFor(state, item) {
     var result = null;
     if (product.hasType(ProductType.PREPARED_FOOD)) {
         result = ( 1 + stateTaxMap.get(state).getBase() ) * product.getPrice();
-    }
-    else {
-        result = calc(state, product.getType()) * product.getPrice() + product.getPrice();
+    } else {
+        var taxMultiplier = stateTaxMap.get(state).getMultiplier(product.getType());
+        if (taxMultiplier === "")
+            result = product.getPrice();
+        else
+            result = (stateTaxMap.get(state).getBase() + taxMultiplier) * product.getPrice() + product.getPrice();
     }
     return result;
 
