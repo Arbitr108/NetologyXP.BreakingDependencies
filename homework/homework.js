@@ -21,7 +21,9 @@ class ProductMap{
         this._products.set(name, product);
         return this;
     }
-    get(){}
+    get(name){
+        return this._products.get(name);
+    }
     _validate(product){
         if(!product instanceof Product)
             throw `${product} is not instance of Product`;
