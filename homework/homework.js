@@ -4,7 +4,7 @@ let ProductType = require("./product_type");
 let ProductMap = require("./product_map");
 let Tax = require("./tax");
 let Printer = require("./printer");
-
+let TestPrinter = require("./test_printer");
 
 let productMap = new ProductMap();
 productMap
@@ -45,6 +45,13 @@ function calculatePriceFor(state, productName) {
         return (tax.getBase() + taxMultiplier) * productPrice + productPrice;
 }
 
+function createPrinter(mode) {
+    if (mode && mode.isTestMode)
+        return new TestPrinter();
+    else
+        return new Printer();
+}
+
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
@@ -52,6 +59,7 @@ class TaxCalculator {
         let mode = this._getMode(arguments);
         var ordersCount = getOrdersCount(mode);
         var state = getSelectedState(mode);
+        var TaxPrinter = createPrinter(mode);
         this._print(state, ordersCount, mode);
     }
 

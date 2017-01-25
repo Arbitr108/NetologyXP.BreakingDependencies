@@ -3,13 +3,13 @@
  */
 "use strict";
 class TestPrinter {
-    print(state, ordersCount) {
-        Printer.print(`----------${state}-----------`);
+    static print(state, ordersCount) {
         for (var i = 0; i < ordersCount; i++) {
             var productName = getSelectedItem();
             var price = calculatePriceFor(state, productName);
-            Printer.print(`${productName}: $${price.toFixed(2)}`);
         }
-        Printer.print(`----Have a nice day!-----`);
+        return i;
     }
 }
+
+module.exports = TestPrinter;
