@@ -49,9 +49,10 @@ class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
     calculateTax() {
-        var ordersCount = getOrdersCount();
-        var state = getSelectedState();
-        this._print(state, ordersCount);
+        let mode = this._getMode(arguments);
+        var ordersCount = getOrdersCount(mode);
+        var state = getSelectedState(mode);
+        this._print(state, ordersCount, mode);
     }
 
     _print(state, ordersCount) {
@@ -63,11 +64,25 @@ class TaxCalculator {
         }
         Printer.print(`----Have a nice day!-----`);
     }
+
+    _getMode(data) {
+        let mode = {};
+        if (data.length > 0) {
+            mode = Array.prototype.slice.call(data)
+                .reduce(function (parameter) {
+                    return parameter.hasOwnProperty("isTestMode") ? parameter.isTestMode : null
+                });
+        }
+        if (mode.hasOwnProperty("isTestMode") && mode.isTestMode == true)
+            mode.testSettings = mode.testSettings || {};
+
+        return mode;
+    }
 }
 
 //############################
 //Production - код:
-//calculateTaxes();
+calculateTaxes();
 
 //############################
 //Тесты:
@@ -87,7 +102,7 @@ runAllTests(tests);
 
 function calculateTaxes() {
     var calculator = new TaxCalculator();
-    calculator.calculateTax({isTestMode: false});
+    calculator.calculateTax({isTestMode: true, ordersCount: 3, state: "Colorado"});
 }
 
 function getSelectedItem() {
@@ -95,12 +110,16 @@ function getSelectedItem() {
     return items[Math.floor(Math.random() * items.length)];
 }
 
-function getSelectedState() {
+function getSelectedState(settings) {
+    if (settings && settings.isTestMode && settings.state)
+        return settings.state;
     var state = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut"];
     return state[Math.floor(Math.random() * state.length)];
 }
 
-function getOrdersCount() {
+function getOrdersCount(settings) {
+    if (settings && settings.isTestMode && settings.ordersCount)
+        return settings.ordersCount;
     return Math.floor(Math.random() * 3) + 1;
 }
 
