@@ -4,7 +4,7 @@
 "use strict"
 
 class Printer {
-    static print(line) {
+    print(line) {
         console.log(line);
     }
 }

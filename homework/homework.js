@@ -5,6 +5,7 @@ let ProductMap = require("./product_map");
 let Tax = require("./tax");
 let Printer = require("./printer");
 let TestPrinter = require("./test_printer");
+let testPrinter = new TestPrinter();
 
 let productMap = new ProductMap();
 productMap
@@ -45,13 +46,6 @@ function calculatePriceFor(state, productName) {
         return (tax.getBase() + taxMultiplier) * productPrice + productPrice;
 }
 
-function createPrinter(mode) {
-    if (mode && mode.isTestMode)
-        return new TestPrinter();
-    else
-        return new Printer();
-}
-
 class TaxCalculator {
     // У этой функции нелья менять интерфейс
     // Но можно менять содержимое
@@ -59,18 +53,8 @@ class TaxCalculator {
         let mode = this._getMode(arguments);
         var ordersCount = getOrdersCount(mode);
         var state = getSelectedState(mode);
-        var TaxPrinter = createPrinter(mode);
-        this._print(state, ordersCount, mode);
-    }
-
-    _print(state, ordersCount) {
-        Printer.print(`----------${state}-----------`);
-        for (var i = 0; i < ordersCount; i++) {
-            var productName = getSelectedItem();
-            var price = calculatePriceFor(state, productName);
-            Printer.print(`${productName}: $${price.toFixed(2)}`);
-        }
-        Printer.print(`----Have a nice day!-----`);
+        var TaxPrinter = this._createPrinter(mode);
+        TaxPrinter.print(state, ordersCount);
     }
 
     _getMode(data) {
@@ -86,6 +70,33 @@ class TaxCalculator {
 
         return mode;
     }
+
+    _createPrinter(mode) {
+        if (mode && mode.isTestMode)
+            return new function () {
+                this.print = function (state, ordersCount) {
+                    testPrinter.spyCounter = 0;
+                    for (var i = 0; i < ordersCount; i++) {
+                        var productName = getSelectedItem();
+                        var price = calculatePriceFor(state, productName);
+                        testPrinter.spyCounter++;
+                    }
+                }
+            }
+        else
+            return new function () {
+                this.print = function (state, ordersCount) {
+                    let printer = new Printer();
+                    printer.print(`----------${state}-----------`);
+                    for (var i = 0; i < ordersCount; i++) {
+                        var productName = getSelectedItem();
+                        var price = calculatePriceFor(state, productName);
+                        printer.print(`${productName}: $${price.toFixed(2)}`);
+                    }
+                    printer.print(`----Have a nice day!-----`);
+                }
+            }
+    }
 }
 
 //############################
@@ -100,6 +111,11 @@ var tests = [
     () => assertEquals(6.7 * (1 + 0.0), calculatePriceFor("Alaska", "amoxicillin")),
     () => assertEquals(6.7 * (1 + 0.0), calculatePriceFor("California", "amoxicillin")),
     () => assertEquals(2 * (1 + 0.0635), calculatePriceFor("Connecticut", "hamburger")),
+    () => assertEquals(7, (function () {
+        var calculator = new TaxCalculator();
+        calculator.calculateTax({isTestMode: true, ordersCount: 7, state: "Colorado"});
+        return testPrinter.getCounter();
+    })()),
 ];
 
 //Раскомментируйте следующую строчку для запуска тестов:
@@ -110,7 +126,7 @@ runAllTests(tests);
 
 function calculateTaxes() {
     var calculator = new TaxCalculator();
-    calculator.calculateTax({isTestMode: true, ordersCount: 3, state: "Colorado"});
+    calculator.calculateTax({isTestMode: false, ordersCount: 3, state: "Colorado"});
 }
 
 function getSelectedItem() {
